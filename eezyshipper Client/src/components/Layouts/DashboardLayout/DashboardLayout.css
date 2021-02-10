@@ -1,0 +1,16 @@
+.sidenav {
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 10; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  overflow-y: scroll;
+}
+
+input[type="text"], input[type="number"], input[type="email"]{
+  border: none;
+  border-bottom: 1px solid #007BFF;
+  background-color: #F2F3F5;
+  border-radius: 0px;
+}

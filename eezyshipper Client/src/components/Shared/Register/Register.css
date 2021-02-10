@@ -1,0 +1,15 @@
+.create-account{
+    width : 85%;
+    margin : 20px auto;
+}
+
+.create-account input, .create-account select{
+    border:none;
+    border-bottom: 2px solid #CCCCCC;
+    background-color:#F2F3F5;
+    color : #040404;
+}
+.login-logo{
+    height : 50px;
+    width : 200px;
+}

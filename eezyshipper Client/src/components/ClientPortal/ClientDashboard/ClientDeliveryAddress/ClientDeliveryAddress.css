@@ -1,0 +1,7 @@
+.country:hover .country {
+    background-color : white;
+}
+
+table td {
+    padding: 5px
+}
