@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { Table } from 'rsuite';
 import TablePagination from 'rsuite/lib/Table/TablePagination';
 import { fakeLocations } from '../../../../../fakeData/fakeLocationList';
@@ -38,7 +39,7 @@ const LocationList = () => {
             <div className="d-flex justify-content-between align-items-center">
                 <p>List of current locations</p>
                 <div>
-                    <Button variant="info" className="rounded-pill">ADD NEW LOCATION</Button>
+                    <Button as={Link} to={'/dashboard/addNewLocation'} variant="info" className="rounded-pill">ADD NEW LOCATION</Button>
                 </div>
             </div>
             <div className="mt-3">

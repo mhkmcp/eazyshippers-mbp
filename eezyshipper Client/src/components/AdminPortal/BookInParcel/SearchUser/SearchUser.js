@@ -1,17 +1,14 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { fakeCustomerList } from '../../../../fakeData/fakeCustomer';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
-import AddParcelToClient from '../AddParcelToClient/AddParcelToClient';
 
 const SearchUser = ({setSeletedUser}) => {
+    const history = useHistory();
     const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data, e) => {
-        e.preventDefault();
-        const fakeUser = [...fakeCustomerList];
-        const [selectedUser] = fakeUser.filter(user => user.id === data.esNumber);
-        setSeletedUser(selectedUser);
+    const onSubmit = (data) => {
+        history.push(`/dashboard/bookInParcel/${data.esNumber}`);
     }
     return (
         <Row>
@@ -35,7 +32,6 @@ const SearchUser = ({setSeletedUser}) => {
                         
                     </form>
                 </MainContentLayout>
-                <AddParcelToClient></AddParcelToClient>
             </Col>
         </Row>
     );

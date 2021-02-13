@@ -6,11 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { eezyshipperStore } from './redux/Store/eezyshipperStore';
+import { BrowserRouter as Router } from 'react-router-dom/cjs/react-router-dom.min';
 
 ReactDOM.render(
   <Provider store={eezyshipperStore}>
     <React.StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')

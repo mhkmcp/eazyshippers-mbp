@@ -30,24 +30,24 @@ const Register = () => {
 
 
     return (
-        <Row className="justify-content-center align-item-center my-5 text-center">
+        <Row className="justify-content-center text-center">
             <Col md={4}>
-                <img className="login-logo" src={customerLogo} alt=""/>
+                <img width={200} className="d-block mx-auto" src={customerLogo} alt="logo"/>
                 <MainContentLayout title="Create Account">
-                    <div className="create-account text-center">
+                    <div className="text-center p-4">
                         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>              
-                            <input className="form-control py-2 my-3" type="text" name="userFirstName" ref={register({ required: true, maxLength: 45 })} placeholder="First Name"/>           
+                            <input className="form-control my-3" type="text" name="userFirstName" ref={register({ required: true, maxLength: 45 })} placeholder="First Name"/>           
                             { errors?.userFirstName && errors?.userFirstName?.type === 'required' &&  <span className="text-danger">This field is required</span>}
                             { errors?.userFirstName && errors?.userFirstName?.type === 'maxLength' && <span className="text-danger">Max 45 Characters</span>}
 
-                            <input className="form-control my-3 py-2" type="text" name="userLastName" ref={register({ required: true, maxLength: 45 })} placeholder="Last Name"/>           
+                            <input className="form-control my-3" type="text" name="userLastName" ref={register({ required: true, maxLength: 45 })} placeholder="Last Name"/>           
                             { errors?.userLastName && errors?.userLastName?.type === 'required' &&  <span className="text-danger">This field is required</span>}
                             { errors?.userLastName && errors?.userLastName?.type === 'maxLength' && <span className="text-danger">Max 45 Characters</span>}
 
-                            <input className="form-control my-3 py-2" type="email" name="userEmail" ref={register({ required: true })} placeholder="Email"/>           
+                            <input className="form-control my-3" type="email" name="userEmail" ref={register({ required: true })} placeholder="Email"/>           
                             {errors?.userEmail && <span className="text-danger">This field is required</span>}
 
-                            <input className="form-control my-3 py-2" type="password" name="userPassword" ref={register({ required: true })} placeholder="Password"/>           
+                            <input className="form-control my-3" type="password" name="userPassword" ref={register({ required: true })} placeholder="Password"/>           
                             {errors?.userPassword && <span className="text-danger">This field is required</span>}
 
                             <select name="userCountry" ref={register({ required: true })} class="btn btn-block btn-secondary my-2 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -58,10 +58,12 @@ const Register = () => {
                             </select>
                             {errors?.userCountry && <span className="text-danger">This field is required</span>}
 
-                            <ReCAPTCHA style={{marginLeft : '15px', marginTop : '20px'}}
-                                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                                onChange={onChange}
-                            />
+                            <div className="d-flex justify-content-center">
+                                <ReCAPTCHA
+                                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                    onChange={onChange}
+                                />
+                            </div>
                             
                             <input className="btn bg-primary btn-block my-2 text-light rounded-pill font-weight-bold mt-4 py-2" type="submit" value="Create Account" />
                             
