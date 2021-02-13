@@ -19,7 +19,6 @@ const Suppliers = () => {
     return (
         <>
             <div>
-                <SupplierList></SupplierList>
                 <MainContentLayout title="Suppliers">
                     <div className="pr-5 pl-3">
                         <h6>Add new supplier</h6>

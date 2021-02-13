@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { Table } from 'rsuite';
 import MainContentLayout from '../../../../Layouts/MainContentLayout/MainContentLayout';
 
@@ -12,11 +13,11 @@ const PricingList = () => {
                 <div className="d-flex justify-content-between align-items-center">
                     <p>Pricing List</p>
                     <div>
-                        <Button variant="info" className="rounded-pill">ADD NEW PRICING</Button>
+                        <Button as={Link} to={`/dashboard/addNewPricing`} variant="info" className="rounded-pill">ADD NEW PRICING</Button>
                     </div>
                 </div>
                 <Table
-                height={400}
+                height={350}
                 data={fakeData}
                 onRowClick={data => {
                     console.log(data);
