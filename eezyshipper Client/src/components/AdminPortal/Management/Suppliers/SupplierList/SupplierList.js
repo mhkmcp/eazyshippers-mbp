@@ -43,7 +43,7 @@ const SupplierList = ({deleteConfirmationState, setDeleteConfirmationState}) => 
         <>
         <MainContentLayout title="Suppliers">
             <div className="d-flex justify-content-between align-items-center">
-                <p>List of current locations</p>
+                <p>List of current suppliers</p>
                 <div>
                     <Button as={Link} to={`/dashboard/addNewSupplier`} variant="info" className="rounded-pill">ADD NEW SUPPLIER</Button>
                 </div>
