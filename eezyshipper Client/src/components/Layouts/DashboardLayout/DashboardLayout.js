@@ -20,7 +20,7 @@ import ClientPayments from '../../ClientPortal/ClientPayments/ClientPayments';
 import Titlebar from '../../HomePage/Titlebar/Titlebar';
 import ClientDashboardRoot from '../../ClientPortal/ClientDashboard/ClientDashboardRoot/ClientDashboardRoot';
 import ForgetPassword from '../../Shared/ForgetPassword/ForgetPassword';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import AddNewLocation from '../../AdminPortal/Management/Location/AddNewLocation/AddNewLocation';
 import LocationList from '../../AdminPortal/Management/Location/LocationList/LocationList';
 import SupplierList from '../../AdminPortal/Management/Suppliers/SupplierList/SupplierList';
@@ -29,8 +29,10 @@ import AddNewPricing from '../../AdminPortal/Management/Pricing/AddNewPricing/Ad
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import SearchUser from '../../AdminPortal/BookInParcel/SearchUser/SearchUser';
 import AddParcelToClient from '../../AdminPortal/BookInParcel/AddParcelToClient/AddParcelToClient';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const DashboardLayout = ({children, contentChanger, contentChange}) => {
+    let location = useLocation();
 
     const user = children?.props?.user;
 
@@ -52,53 +54,57 @@ const DashboardLayout = ({children, contentChanger, contentChange}) => {
                                 </Sidenav>
                             </Col>
                             <Col  md={8} style={{backgroundColor : '#F1F6FC'}}>
-                                    <Switch>
-                                        <Route path="/dashboard/summery">
-                                            <Summery></Summery>
-                                        </Route>
-                                        <Route path="/dashboard/adminConsignments">
-                                            <Consignment></Consignment>
-                                        </Route>
-                                        <Route path="/dashboard/addNewLocation">
-                                            <AddNewLocation></AddNewLocation>
-                                        </Route>
-                                        <Route path="/dashboard/adminSystemUser">
-                                            <SystemUser></SystemUser>
-                                        </Route>
-                                        <Route path="/dashboard/adminLocationList" >
-                                            <LocationList></LocationList>
-                                        </Route>
-                                        <Route path="/dashboard/adminPricingList" >
-                                            <PricingList></PricingList>
-                                        </Route>
-                                        <Route path="/dashboard/addNewPricing" >
-                                            <AddNewPricing></AddNewPricing>
-                                        </Route>
-                                        <Route path="/dashboard/adminMultiCurrency" >
-                                            <MultiCurrency></MultiCurrency>
-                                        </Route>
-                                        <Route path="/dashboard/adminSuppliers" >
-                                            <SupplierList></SupplierList>
-                                        </Route>
-                                        <Route path="/dashboard/addNewSupplier" >
-                                            <Suppliers></Suppliers>
-                                        </Route>
-                                        <Route path="/dashboard/adminWeightConversion" >
-                                            <WeightConversion></WeightConversion>
-                                        </Route>
-                                        <Route path="/dashboard/adminProfiles" >
-                                            <Profiles></Profiles>
-                                        </Route>
-                                        <Route path="/dashboard/adminPasswordReset" >
-                                            <ForgetPassword></ForgetPassword>
-                                        </Route>
-                                        <Route exact path="/dashboard/bookInParcel" >
-                                            <SearchUser></SearchUser>
-                                        </Route>
-                                        <Route path="/dashboard/bookInParcel/:userId" >
-                                            <AddParcelToClient></AddParcelToClient>
-                                        </Route>
-                                    </Switch>
+                                <TransitionGroup>
+                                    <CSSTransition in={true} key={location.key} classNames="page-fade" timeout={100}>
+                                        <Switch location={location}>
+                                            <Route path="/dashboard/summery">
+                                                <Summery></Summery>
+                                            </Route>
+                                            <Route path="/dashboard/adminConsignments">
+                                                <Consignment></Consignment>
+                                            </Route>
+                                            <Route path="/dashboard/addNewLocation">
+                                                <AddNewLocation></AddNewLocation>
+                                            </Route>
+                                            <Route path="/dashboard/adminSystemUser">
+                                                <SystemUser></SystemUser>
+                                            </Route>
+                                            <Route path="/dashboard/adminLocationList" >
+                                                <LocationList></LocationList>
+                                            </Route>
+                                            <Route path="/dashboard/adminPricingList" >
+                                                <PricingList></PricingList>
+                                            </Route>
+                                            <Route path="/dashboard/addNewPricing" >
+                                                <AddNewPricing></AddNewPricing>
+                                            </Route>
+                                            <Route path="/dashboard/adminMultiCurrency" >
+                                                <MultiCurrency></MultiCurrency>
+                                            </Route>
+                                            <Route path="/dashboard/adminSuppliers" >
+                                                <SupplierList></SupplierList>
+                                            </Route>
+                                            <Route path="/dashboard/addNewSupplier" >
+                                                <Suppliers></Suppliers>
+                                            </Route>
+                                            <Route path="/dashboard/adminWeightConversion" >
+                                                <WeightConversion></WeightConversion>
+                                            </Route>
+                                            <Route path="/dashboard/adminProfiles" >
+                                                <Profiles></Profiles>
+                                            </Route>
+                                            <Route path="/dashboard/adminPasswordReset" >
+                                                <ForgetPassword></ForgetPassword>
+                                            </Route>
+                                            <Route exact path="/dashboard/bookInParcel" >
+                                                <SearchUser></SearchUser>
+                                            </Route>
+                                            <Route path="/dashboard/bookInParcel/:userId" >
+                                                <AddParcelToClient></AddParcelToClient>
+                                            </Route>
+                                        </Switch>
+                                    </CSSTransition>
+                                </TransitionGroup>
                             </Col>
                             <Col md={2} style={{backgroundColor : '#F1F6FC'}}>Right Sidebar</Col>
                         </>

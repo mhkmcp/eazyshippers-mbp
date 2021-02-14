@@ -2,14 +2,29 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Notification } from 'rsuite';
+import { fakeCustomerList } from '../../../../fakeData/fakeCustomer';
 import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
 
 const SearchUser = ({setSeletedUser}) => {
     const history = useHistory();
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data) => {
-        history.push(`/dashboard/bookInParcel/${data.esNumber}`);
+    const { register, handleSubmit, errors, reset } = useForm();
+
+    const errorNotification = () =>{
+        Notification['error']({title: 'error', description: <span className="text-danger">Not Found</span>})
     }
+    const onSubmit = (data) => {
+        const fakeUsers = [...fakeCustomerList];
+        const [filteredUser] = fakeUsers.filter(user => user.id === data.esNumber);
+        if(filteredUser){
+            history.push(`/dashboard/bookInParcel/${data.esNumber}`);
+        }
+        else{
+            errorNotification();
+            reset({});
+        }
+    }
+    
     return (
         <Row>
             <Col md={6}>

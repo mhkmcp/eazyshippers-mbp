@@ -43,7 +43,7 @@ function App() {
           </Route>
           <AppRoute exact path="/register" layout={EmptyLayout} component={Register} />
           <AppRoute exact path="/forget-pass" layout={EmptyLayout} component={ForgetPassword} />
-          <AppRoute path="/dashboard" layout={DashboardLayout} user="client"/>
+          <AppRoute path="/dashboard" layout={DashboardLayout} user="admin"/>
           <AppRoute path="/track-parcel" layout={EmptyLayout} />
           <Route path="/available-card">
             <AvailableCards></AvailableCards>
