@@ -34,31 +34,29 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest}) => {
 function App() {
   return (
     <>
-        <Router>  
-          <Switch> 
-              <Route exact path="/">
-                <EmptyLayout><HomePageRoot/></EmptyLayout>
-              </Route>
-              <Route exact path="/login">
-                <EmptyLayout><AdminLogIn/></EmptyLayout>
-              </Route>
-              <AppRoute exact path="/register" layout={EmptyLayout} component={Register} />
-              <AppRoute exact path="/forget-pass" layout={EmptyLayout} component={ForgetPassword} />
-              <AppRoute path="/dashboard" layout={DashboardLayout} user="client"/>
-              <AppRoute path="/track-parcel" layout={EmptyLayout} />
-              <Route path="/available-card">
-                <AvailableCards></AvailableCards>
-              </Route>
-              <Route path="*">
-                <EmptyLayout><NotFound/></EmptyLayout>
-              </Route>
+      <Switch> 
+          <Route exact path="/">
+            <EmptyLayout><HomePageRoot/></EmptyLayout>
+          </Route>
+          <Route exact path="/login">
+            <EmptyLayout><AdminLogIn/></EmptyLayout>
+          </Route>
+          <AppRoute exact path="/register" layout={EmptyLayout} component={Register} />
+          <AppRoute exact path="/forget-pass" layout={EmptyLayout} component={ForgetPassword} />
+          <AppRoute path="/dashboard" layout={DashboardLayout} user="admin"/>
+          <AppRoute path="/track-parcel" layout={EmptyLayout} />
+          <Route path="/available-card">
+            <AvailableCards></AvailableCards>
+          </Route>
+          <Route path="*">
+            <EmptyLayout><NotFound/></EmptyLayout>
+          </Route>
 
-              {/* <AppRoute path="/subscription" layout={EmptyLayout}  user="client" component={Subscription} /> */}
+          {/* <AppRoute path="/subscription" layout={EmptyLayout}  user="client" component={Subscription} /> */}
 
-              {/* <AppRoute path="*" layout={EmptyLayout} component={NotFound} />            */}
-              {/*Nice Comment*/} 
-            </Switch>
-        </Router>
+          {/* <AppRoute path="*" layout={EmptyLayout} component={NotFound} />            */}
+          {/*Nice Comment*/} 
+        </Switch>
     </>
   );
 }

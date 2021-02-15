@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardColumns, CardDeck, CardGroup, Col, Row } from 'react-bootstrap';
+import { CardDeck } from 'react-bootstrap';
 import ClientSubscriptions from '../../ClientShared/ClientSubscriptions/ClientSubscriptions';
 import CalculateShippingCost from '../CalculateShippingCost/CalculateShippingCost';
 import ClientActiveParcels from '../ClientActiveParcels/ClientActiveParcels';

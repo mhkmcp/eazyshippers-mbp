@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { contentChange } from '../../../redux/Actions/eeztshipperActions';
 import SummeryLayout from '../../Layouts/SummeryLayout/SummeryLayout';
 
@@ -12,7 +13,7 @@ const Summery = ({contentChange}) => {
                 <Col  className="p-3 pt-4"  md={8} style={{backgroundColor : '#DEF2FD'}}>
                     <Row>
                         <Col md={6}>
-                            <Button onClick={() => contentChange('bookInParcel')} className="rounded-pill px-5 py-2 font-weight-bold" variant="primary">BOOK IN PARCEL</Button>
+                            <Button as={Link} to={`/dashboard/bookInParcel`} className="rounded-pill px-5 py-2 font-weight-bold" variant="primary">BOOK IN PARCEL</Button>
                             <SummeryLayout title="Cosignment" value="4"></SummeryLayout>
                             <SummeryLayout title="Cosignment" value="4"></SummeryLayout>
                             <SummeryLayout title="Cosignment" value="4"></SummeryLayout>

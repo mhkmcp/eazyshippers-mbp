@@ -13,7 +13,7 @@ const ClientDeliveryAddress = () => {
         <MainContentLayout>
         <div class="d-block">
             <Row>
-                <Col md={7}>
+                <Col md={6}>
                     <h5>Delivery Address <span>ES0123456</span></h5>
                     <hr/>
                 </Col>

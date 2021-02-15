@@ -1,18 +1,30 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Notification } from 'rsuite';
 import { fakeCustomerList } from '../../../../fakeData/fakeCustomer';
 import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
-import AddParcelToClient from '../AddParcelToClient/AddParcelToClient';
 
 const SearchUser = ({setSeletedUser}) => {
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data, e) => {
-        e.preventDefault();
-        const fakeUser = [...fakeCustomerList];
-        const [selectedUser] = fakeUser.filter(user => user.id === data.esNumber);
-        setSeletedUser(selectedUser);
+    const history = useHistory();
+    const { register, handleSubmit, errors, reset } = useForm();
+
+    const errorNotification = () =>{
+        Notification['error']({title: 'error', description: <span className="text-danger">Not Found</span>})
     }
+    const onSubmit = (data) => {
+        const fakeUsers = [...fakeCustomerList];
+        const [filteredUser] = fakeUsers.filter(user => user.id === data.esNumber);
+        if(filteredUser){
+            history.push(`/dashboard/bookInParcel/${data.esNumber}`);
+        }
+        else{
+            errorNotification();
+            reset({});
+        }
+    }
+    
     return (
         <Row>
             <Col md={6}>
@@ -35,7 +47,6 @@ const SearchUser = ({setSeletedUser}) => {
                         
                     </form>
                 </MainContentLayout>
-                <AddParcelToClient></AddParcelToClient>
             </Col>
         </Row>
     );

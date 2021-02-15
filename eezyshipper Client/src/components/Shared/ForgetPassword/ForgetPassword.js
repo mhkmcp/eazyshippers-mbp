@@ -13,16 +13,16 @@ const ForgetPassword = () => {
         history.push('/dashboard')
     }
     return (
-        <Row className="justify-content-center align-item-center my-5 text-center">
+        <Row className="justify-content-center text-center">
             <Col md={4}>
-                <img className="login-logo" src={customerLogo} alt=""/>
+                <img width={200} className="d-block mx-auto" src={customerLogo} alt=""/>
                 <MainContentLayout title="Reset Password">
-                    <div className="forget-pass text-center">
-                        <form className="register-form mt-3" onSubmit={handleSubmit(onSubmit)}> 
+                    <div className="text-center p-4">
+                        <form className="mt-3" onSubmit={handleSubmit(onSubmit)}> 
                             <p className="text-secondary font-weight-bold"> <small>Enter the email address associated with your account <br/> and we will send a link to reset your password</small> </p> 
 
-                            <input className="form-control my-2 mt-5" type="email" name="email" ref={register({ required: true })} placeholder="Email"/>           
-                            {errors.email && <span className="text-danger">This field is required</span>}
+                            <input className="form-control my-2 mt-5" type="email" name="forgetPasswordEmail" ref={register({ required: true })} placeholder="Email"/>           
+                            {errors.forgetPasswordEmail && <span className="text-danger">This field is required</span>}
 
                             
                             <input className="btn bg-primary btn-block my-2 py-2 text-light rounded-pill font-weight-bold mt-4" type="submit" value="Send Link" />

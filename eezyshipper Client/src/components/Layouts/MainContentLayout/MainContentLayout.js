@@ -4,8 +4,8 @@ import './MainContentLayout.css';
 
 const MainContentLayout = ({children, contentChanger, title}) => {
     return (
-        <div className="shadow mainContent mt-4 p-2">
-            <h3>{title || contentChanger}</h3>
+        <div className="shadow mainContent px-2 py-4">
+            <h4>{title || contentChanger}</h4>
             <hr/>
             {children}
         </div>

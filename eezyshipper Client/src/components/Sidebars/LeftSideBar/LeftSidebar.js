@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { contentChange } from '../../../redux/Actions/eeztshipperActions';
 import './LeftSidebar.css';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const LeftSidebar = ({ user, contentChanger, contentChange }) => {
     return (
@@ -14,19 +15,19 @@ const LeftSidebar = ({ user, contentChanger, contentChange }) => {
             <Sidenav.Body>
             <Nav>
                 <Dropdown  eventKey="1" title="Business Rules" icon={<Icon icon="magic" />}>
-                    <Dropdown.Item onClick={() => contentChange('adminConsignments')} eventKey="1-1">Consingnment</Dropdown.Item>
+                    <Link to={`/dashboard/adminConsignments`}><Dropdown.Item eventKey="1-1">Consingnment</Dropdown.Item></Link>
                 </Dropdown>
                 <Dropdown eventKey="2" title="Management" icon={<Icon icon="gear-circle" />}>
-                    <Dropdown.Item onClick={() => contentChange('adminSystemUser')} eventKey="2-1">System User</Dropdown.Item>
-                    <Dropdown.Item onClick={() => contentChange('adminLocation')} eventKey="2-2">Location</Dropdown.Item>
-                    <Dropdown.Item onClick={() => contentChange('adminPricing')} eventKey="2-3">Pricing</Dropdown.Item>
-                    <Dropdown.Item onClick={() => contentChange('adminSuppliers')} eventKey="2-4">Suppliers</Dropdown.Item>
-                    <Dropdown.Item onClick={() => contentChange('adminMultiCurrency')} eventKey="2-5">Multi Currency</Dropdown.Item>
-                    <Dropdown.Item onClick={() => contentChange('adminWeightConversion')} eventKey="2-6">Weight Conversion</Dropdown.Item>
+                    <Link to={`/dashboard/adminSystemUser`}><Dropdown.Item eventKey="2-1">System User</Dropdown.Item></Link>
+                    <Link to={`/dashboard/adminLocationList`}><Dropdown.Item eventKey="2-2">Location</Dropdown.Item></Link>
+                    <Link to={`/dashboard/adminPricingList`}><Dropdown.Item eventKey="2-3">Pricing</Dropdown.Item></Link>
+                    <Link to={`/dashboard/adminSuppliers`}><Dropdown.Item eventKey="2-4">Suppliers</Dropdown.Item></Link>
+                    <Link to={`/dashboard/adminMultiCurrency`}><Dropdown.Item eventKey="2-5">Multi Currency</Dropdown.Item></Link>
+                    <Link to={`/dashboard/adminWeightConversion`}><Dropdown.Item eventKey="2-6">Weight Conversion</Dropdown.Item></Link>
                 </Dropdown>
                 <Dropdown eventKey="3" title="Customers" icon={<Icon icon="magic" />}>
-                    <Dropdown.Item onClick={() => contentChange('adminProfiles')} eventKey="3-1">Profiles</Dropdown.Item>
-                    <Dropdown.Item onClick={() => contentChange('adminPasswordReset')} eventKey="3-2">Password Reset</Dropdown.Item>
+                    <Link to={`/dashboard/adminProfiles`}><Dropdown.Item eventKey="3-1">Profiles</Dropdown.Item></Link>
+                    <Link to={`/dashboard/adminPasswordReset`}><Dropdown.Item eventKey="3-2">Password Reset</Dropdown.Item></Link>
                 </Dropdown>
             </Nav>
             </Sidenav.Body>
