@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginAPIController extends Controller
 {
+    public function createToken()
+    {
+        $user = User::first();
+        $accessToken = $user->createToken('Token Name')->accessToken;
+        return response()->json([
+            'success' => true,
+            'message' => 'User Details',
+            'data' => $user,
+            'accessToken' => $accessToken,
+        ], 200);
+    }
 
     public function login(Request $request)
     {
@@ -36,10 +47,11 @@ class LoginAPIController extends Controller
             ], 200);
         } else {
             $user = User::find(Auth::user()->id);
-            //$access_token = $user->createToken('authToken')->accessToken;
+            $access_token = $user->createToken('authToken')->accessToken;
             return response()->json([
                 'success' => true,
                 'message' => 'Login Successful!',
+                'data' => ['user' => $user, 'access_token' => $access_token],
             ], 200);
         }
     }
