@@ -1,10 +1,12 @@
 import React from 'react';
+import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
 
 const SystemUser = () => {
     return (
         <>
-        
-            <h1>This is System User</h1>
+            <MainContentLayout title="System User">
+                <h4>RABC</h4>
+            </MainContentLayout>
         </>
     );
 };

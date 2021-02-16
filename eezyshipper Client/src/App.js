@@ -1,6 +1,6 @@
 import 'rsuite/dist/styles/rsuite-default.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import HomePageRoot from './components/HomePage/HomePageRoot/HomePageRoot';
 import DashboardLayout from './components/Layouts/DashboardLayout/DashboardLayout';
 import EmptyLayout from './components/Layouts/EmptyLayout/EmptyLayout';

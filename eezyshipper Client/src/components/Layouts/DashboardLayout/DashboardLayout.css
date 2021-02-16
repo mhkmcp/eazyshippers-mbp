@@ -45,3 +45,62 @@ input[type="text"], input[type="number"], input[type="email"], input[type="passw
   opacity: 0;
   transition: opacity 300ms linear;
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.wrapper{
+  display: flex;
+}
+
+.sidenav-content, .main-content{
+  padding: 10px;
+}
+
+.sidenav-content {
+  width: 300px;
+  background: #deffff;
+  overflow-y: auto;
+}
+
+.sidenav-content * { margin-bottom: 10px; }
+.main-content {
+  width: 100%;
+  background: #ffe0de;
+}
+/* (A2) HIDE DRAWER BUTTON */
+#bTog { display: none; }
+ 
+/* (B) SMALL SCREEN */
+@media screen AND (max-width:768px) {
+  /* (B1) SHOW TOGGLE SIDEBAR BUTTON */
+  #bTog {
+    display: inline-block;
+    width: 100%;
+    font-size: 24px;
+  }
+
+  /* (B2) COLLAPSED SIDEBAR BY DEFAULT */
+  #demoBSide { 
+    width: 50px; 
+    text-align: center;
+    transition: all 0.2s;
+  }
+  #demoBSide .ico { font-size: 30px; }
+  #demoBSide .txt { display: none; }
+
+  /* (B3) EXPAND SIDEBAR */
+  #demoB.open #demoBSide {
+    width: 200px;
+    text-align: left;
+  }
+  #demoB.open .ico { font-size: inherit; }
+  #demoB.open .txt { display: inline; }
+}

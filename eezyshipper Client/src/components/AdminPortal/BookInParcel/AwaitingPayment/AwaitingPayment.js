@@ -1,10 +1,11 @@
 import React from 'react';
+import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
 
 const AwaitingPayment = () => {
     return (
-        <div>
-            
-        </div>
+        <MainContentLayout title="Awaiting Payments">
+            <h4>Awaiting</h4>
+        </MainContentLayout>
     );
 };
 

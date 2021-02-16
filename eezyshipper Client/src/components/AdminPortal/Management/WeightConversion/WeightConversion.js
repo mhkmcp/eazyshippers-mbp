@@ -1,9 +1,12 @@
 import React from 'react';
+import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
 
 const WeightConversion = () => {
     return (
         <>
-            <h1>Weight Conversion</h1>
+            <MainContentLayout title="Weight Conversion">
+                <h4>Weight</h4>
+            </MainContentLayout>
         </>
     );
 };
