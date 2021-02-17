@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { fakeCustomerList } from '../../../../fakeData/fakeCustomer';
 import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
 
 const AddParcelToClient = () => {
     const {userId} = useParams();
+    const history = useHistory();
     const [selectedUser, setSelectedUser] = useState([]);
     const [parcelList, setParcelList] = useState([]);
-    const { register, handleSubmit, errors, reset } = useForm()
+    const { register, handleSubmit, errors } = useForm()
 
     useEffect(() => {
         const fakeUser = [...fakeCustomerList];
@@ -28,6 +30,10 @@ const AddParcelToClient = () => {
             return parcel?.parcelId !== productId;
         });
         setParcelList(filteredProducts);
+    }
+
+    const handleParcelListComplition = () => {
+        history.push(`/dashboard/bookInParcel/awaitingPayment`)
     }
     
     return (
@@ -182,7 +188,7 @@ const AddParcelToClient = () => {
                     {
                         parcelList.length> 0 ?
                         <div className="d-flex justify-content-end">
-                            <input className="btn bg-primary rounded mx-1" type="button" value="Complete" />
+                            <input className="btn bg-primary rounded mx-1" onClick={() => handleParcelListComplition()} type="button" value="Complete" />
                         </div>
                         :
                         <div className="d-flex justify-content-end">

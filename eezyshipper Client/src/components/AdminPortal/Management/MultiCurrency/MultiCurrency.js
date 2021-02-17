@@ -1,9 +1,12 @@
 import React from 'react';
+import MainContentLayout from '../../../Layouts/MainContentLayout/MainContentLayout';
 
 const MultiCurrency = () => {
     return (
         <>
-            <h1>Multi Currency</h1>
+            <MainContentLayout title="Multi Currency">
+                <h4>Multi</h4>
+            </MainContentLayout>
         </>
     );
 };

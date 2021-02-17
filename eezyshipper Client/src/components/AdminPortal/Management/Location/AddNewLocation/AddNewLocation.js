@@ -12,6 +12,7 @@ const AddNewLocation = () => {
         //     console.log(data);
         //     history.push('/dashboard')
         // });
+    
 
         console.log(data);
     }

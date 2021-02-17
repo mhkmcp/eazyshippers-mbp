@@ -9,6 +9,7 @@ const AdminLogIn = () => {
     const history = useHistory();
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => {
+        console.log(data);
         history.push('/dashboard')
     }
     return (

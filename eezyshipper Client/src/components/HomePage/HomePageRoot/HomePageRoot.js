@@ -8,16 +8,17 @@ const HomePageRoot = () => {
     const [welcomeMessage, setWelcomeMessage] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/')
+        fetch('http://127.0.0.1:8000/')
         .then(res => res.json())
-        .then(data => setWelcomeMessage(data.OkMessage));
-    }, [])
+        .then(data => setWelcomeMessage(data.message));
+    }, []);
+    
     return (
         <div>
             <Titlebar></Titlebar>
+            <h2 className="text-center">{`${welcomeMessage} Connected to API`}</h2>
             <TopBanner></TopBanner>
             <FeaturesList></FeaturesList>
-            <h2 className="text-center">{welcomeMessage}</h2>
             <ClientFeedback></ClientFeedback>
         </div>
     );

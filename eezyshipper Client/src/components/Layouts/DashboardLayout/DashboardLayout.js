@@ -30,6 +30,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import SearchUser from '../../AdminPortal/BookInParcel/SearchUser/SearchUser';
 import AddParcelToClient from '../../AdminPortal/BookInParcel/AddParcelToClient/AddParcelToClient';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import AwaitingPayment from '../../AdminPortal/BookInParcel/AwaitingPayment/AwaitingPayment';
 
 const DashboardLayout = ({children, contentChanger, contentChange}) => {
     let location = useLocation();
@@ -47,7 +48,7 @@ const DashboardLayout = ({children, contentChanger, contentChange}) => {
                     {
                         user === 'admin' ?
                         <>
-                            <Col className="text-center pt-3 px-3 pr-0 position-sticky" md={2} style={{ backgroundColor: '#F1F6FC' }}>
+                            <Col className="text-center pt-3 px-3 pr-0 " md={2} style={{ backgroundColor: '#F1F6FC' }}>
                                 <Link to={`/dashboard/summery`}><h4>Dashboard</h4></Link>
                                 <Sidenav className="bg-transparent" defaultOpenKeys={['1', '2']}>
                                     <LeftSidebar user={user}></LeftSidebar>
@@ -99,7 +100,10 @@ const DashboardLayout = ({children, contentChanger, contentChange}) => {
                                             <Route exact path="/dashboard/bookInParcel" >
                                                 <SearchUser></SearchUser>
                                             </Route>
-                                            <Route path="/dashboard/bookInParcel/:userId" >
+                                            <Route exact path="/dashboard/bookInParcel/awaitingPayment" >
+                                                <AwaitingPayment></AwaitingPayment>
+                                            </Route>
+                                            <Route exact path="/dashboard/bookInParcel/:userId" >
                                                 <AddParcelToClient></AddParcelToClient>
                                             </Route>
                                         </Switch>
