@@ -20,4 +20,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/registermail', function () {
+    return view('mail.reset')->with(['url' => "http://google.com", 'app_url' => url('/')]);
+});
+
+
 
