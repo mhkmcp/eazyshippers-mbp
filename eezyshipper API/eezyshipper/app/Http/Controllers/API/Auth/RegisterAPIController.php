@@ -16,19 +16,19 @@ class RegisterAPIController extends Controller
     {
         $loginData = $request->all();
         $validator = \Validator::make($loginData, [
-            'firstname' => ['required', 'string'],
-            'lastname' => ['required', 'string'],
-            'email' => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'max:60'],
-            'country' => ['required', 'string']
+            'users_first_name' => ['required', 'string', 'max:45'],
+            'users_last_name' => ['required', 'string', 'max:45'],
+            'email' => ['required', 'string', 'email', 'unique:users', 'max:50'],
+            'password' => ['required', 'string', 'min:6', 'max:255'],
+
         ], [
-            'firstname.required' => 'Please give your firstname!',
-            'lastname.required' => 'Please give your lastname!',
+            'users_first_name.required' => 'Please give your firstname!',
+            'users_last_name.required' => 'Please give your lastname!',
             'password.required' => 'Please give your password!',
             'email.required' => 'Please give your email!',
             'email.email' => 'Give a valid email address!',
             'email.unique' => 'Email has been used!',
-            'country.required' => 'Please give your country!'
+
         ]);
 
         if ($validator->fails()) {
@@ -39,14 +39,12 @@ class RegisterAPIController extends Controller
         }
 
         $user = new User();
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
+        $user->users_first_name = $request->users_first_name;
+        $user->users_last_name = $request->users_last_name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->country = $request->country;
+        
         $user->save();
-
-        $user = User::find($user->id);
 
         return response()->json([
             'success' => true,
