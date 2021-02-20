@@ -15,7 +15,6 @@ const HomePageRoot = () => {
     
     return (
         <div>
-            <Titlebar></Titlebar>
             <h2 className="text-center">{`${welcomeMessage} Connected to API`}</h2>
             <TopBanner></TopBanner>
             <FeaturesList></FeaturesList>

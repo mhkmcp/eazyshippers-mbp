@@ -1,17 +1,33 @@
 import { Link, useHistory } from 'react-router-dom';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import MainContentLayout from '../Layouts/MainContentLayout/MainContentLayout';
+import MainContentLayout from '../../Layouts/MainContentLayout/MainContentLayout';
 import { Col, Row, Button } from 'react-bootstrap';
-import customerLogo from '../../images/customer-logo.png';
+import customerLogo from '../../../images/customer-logo.png';
+import { setCurrentUser } from '../../../redux/Actions/eeztshipperActions';
+import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
-const AdminLogIn = () => {
+const AdminLogIn = ({setCurrentUser}) => {
+    //localize..
     const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => {
-        fetch('http://127.0.0.1:8000/registermail')
+        fetch('http://127.0.0.1:8000/api/auth/login',{
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(res => {
+            let {data:{access_token, user}} = res;
+            user.role='admin';
+            setCurrentUser(user);
+            history.replace(from);
+        });
     }
     return (
         <Row className="justify-content-center text-center">
@@ -43,4 +59,14 @@ const AdminLogIn = () => {
     );
 };
 
-export default AdminLogIn;
+const mapStateToProps = state => {
+    return{
+        currentUser: state.currentUser
+    }
+}
+
+const mapDispatchToProps ={
+    setCurrentUser: setCurrentUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLogIn);

@@ -40,7 +40,7 @@ const ClientFeedback = () => {
                 </Row>
                 <Row className="mt-5">
                     {
-                        reviews.map(review => <ReviewItem data={review} key={review._id}></ReviewItem>)
+                        reviews.map(review => <ReviewItem data={review} key={review.reviewId}></ReviewItem>)
                     }
                 </Row>
             </Container>

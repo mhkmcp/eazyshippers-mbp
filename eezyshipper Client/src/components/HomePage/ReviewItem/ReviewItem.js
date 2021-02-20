@@ -2,7 +2,6 @@ import React from 'react';
 import { Col, Image, Row } from 'react-bootstrap';
 
 const ReviewItem = ({data}) => {
-    console.log(data);
     return (
         <Col md={4} sm={6}>
             <div style={{minHeight: '200px'}} className="m-1 p-4 rounded border">

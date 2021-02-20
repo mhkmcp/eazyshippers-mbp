@@ -1,27 +1,41 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button } from 'react-bootstrap';
 import customerLogo from '../../../images/customer-logo.png';
 import MainContentLayout from '../../Layouts/MainContentLayout/MainContentLayout';
 import './Register.css';
 import ReCAPTCHA from "react-google-recaptcha";
+import { setCurrentUser } from '../../../redux/Actions/eeztshipperActions';
+import { connect } from 'react-redux';
 
 
 
-const Register = () => {
+const Register = ({currentUser, setCurrentUser}) => {
+    //localize
     const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => {
-        // fetch('localhost:5000/addUser')
-        // .then(res => res.json())
-        // .then(data => {
-        //     console.log(data);
-        //     history.push('/dashboard')
-        // });
-
-        console.log(data);
+        fetch('http://127.0.0.1:8000/api/auth/register',{
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(res => {
+            let {data:{user}} = res;
+            user.role = 'admin';
+            console.log(user);
+            setCurrentUser(user);
+            history.replace(from);
+        })
+        .catch(err => {
+            
+        });
     }
 
     function onChange(value) {
@@ -36,21 +50,21 @@ const Register = () => {
                 <MainContentLayout title="Create Account">
                     <div className="text-center p-4">
                         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>              
-                            <input className="form-control my-3" type="text" name="userFirstName" ref={register({ required: true, maxLength: 45 })} placeholder="First Name"/>           
-                            { errors?.userFirstName && errors?.userFirstName?.type === 'required' &&  <span className="text-danger">This field is required</span>}
-                            { errors?.userFirstName && errors?.userFirstName?.type === 'maxLength' && <span className="text-danger">Max 45 Characters</span>}
+                            <input className="form-control my-3" type="text" name="users_first_name" ref={register({ required: true, maxLength: 45 })} placeholder="First Name"/>           
+                            { errors?.userFirstName && errors?.users_first_name?.type === 'required' &&  <span className="text-danger">This field is required</span>}
+                            { errors?.userFirstName && errors?.users_first_name?.type === 'maxLength' && <span className="text-danger">Max 45 Characters</span>}
 
-                            <input className="form-control my-3" type="text" name="userLastName" ref={register({ required: true, maxLength: 45 })} placeholder="Last Name"/>           
-                            { errors?.userLastName && errors?.userLastName?.type === 'required' &&  <span className="text-danger">This field is required</span>}
-                            { errors?.userLastName && errors?.userLastName?.type === 'maxLength' && <span className="text-danger">Max 45 Characters</span>}
+                            <input className="form-control my-3" type="text" name="users_last_name" ref={register({ required: true, maxLength: 45 })} placeholder="Last Name"/>           
+                            { errors?.users_last_name && errors?.userLastName?.type === 'required' &&  <span className="text-danger">This field is required</span>}
+                            { errors?.users_last_name && errors?.userLastName?.type === 'maxLength' && <span className="text-danger">Max 45 Characters</span>}
 
-                            <input className="form-control my-3" type="email" name="userEmail" ref={register({ required: true })} placeholder="Email"/>           
-                            {errors?.userEmail && <span className="text-danger">This field is required</span>}
+                            <input className="form-control my-3" type="email" name="email" ref={register({ required: true })} placeholder="Email"/>           
+                            {errors?.email && <span className="text-danger">This field is required</span>}
 
-                            <input className="form-control my-3" type="password" name="userPassword" ref={register({ required: true })} placeholder="Password"/>           
-                            {errors?.userPassword && <span className="text-danger">This field is required</span>}
+                            <input className="form-control my-3" type="password" name="password" ref={register({ required: true })} placeholder="Password"/>           
+                            {errors?.password && <span className="text-danger">This field is required</span>}
 
-                            <select name="userCountry" ref={register({ required: true })} class="btn btn-block btn-secondary my-2 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            <select name="userCountry" ref={register({ required: true })} className="btn btn-block btn-secondary my-2 dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                 <option value="Bangladesh">Bangladesh</option>
                                 <option value="Srilanka">Srilanka</option>
                                 <option value="Australia">Australia</option>
@@ -83,4 +97,13 @@ const Register = () => {
     );
 };
 
-export default Register;
+const mapStateToProps = state => {
+    return{
+        currentUser: state.currentUser
+    }
+}
+
+const mapDispatchToProps = {
+    setCurrentUser: setCurrentUser
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
