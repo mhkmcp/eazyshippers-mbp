@@ -9,8 +9,9 @@ const AdminLogIn = () => {
     const history = useHistory();
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => {
-        console.log(data);
-        history.push('/dashboard')
+        fetch('http://127.0.0.1:8000/registermail')
+        .then(res => res.json())
+        .then(data => console.log(data));
     }
     return (
         <Row className="justify-content-center text-center">
