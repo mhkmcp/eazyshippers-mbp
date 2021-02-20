@@ -24,6 +24,7 @@ class LoginAPIController extends Controller
     public function login(Request $request)
     {
         $loginData = $request->all();
+        // ["users_email" => $request->users_email,"users_password" => $request->users_password];
         $validator = \Validator::make($loginData, [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
@@ -54,5 +55,12 @@ class LoginAPIController extends Controller
                 'data' => ['user' => $user, 'access_token' => $access_token],
             ], 200);
         }
+    }
+
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 }

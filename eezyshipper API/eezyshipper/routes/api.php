@@ -30,7 +30,7 @@ Route::group([
 Route::group([
     'middleware' => 'auth:api',
 ], function () {
-    Route::get('logout', 'API\Auth\AuthController@logout');
+    Route::get('logout', 'API\Auth\LoginAPIController@logout');
     Route::get('user', 'API\Auth\AuthController@auth_user');
 });
 
