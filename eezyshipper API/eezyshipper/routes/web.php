@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return response()->json([
         'name' => 'eezyshipper',
         'message' => 'Hello World',
     ]);
+    
+    // $config = ['table' => 'users', 'length' => 11, 'prefix' => 'ES'];
+    // $id = IdGenerator::generate($config);
+
+    // //\DB::table('users')->insert(['id'=>$id]);
+
+    // //echo $id;
+
+    // return $id;
 });
 
-Route::get('/registermail', function () {
-    return view('mail.reset')->with(['url' => "http://google.com", 'app_url' => url('/')]);
-});
+// Route::get('/registermail', function () {
+//     return view('mail.reset')->with(['url' => "http://google.com", 'app_url' => url('/')]);
+// });
 
 
 

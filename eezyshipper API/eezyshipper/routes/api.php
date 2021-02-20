@@ -30,7 +30,7 @@ Route::group([
 Route::group([
     'middleware' => 'auth:api',
 ], function () {
-    Route::get('logout', 'API\Auth\AuthController@logout');
+    Route::get('logout', 'API\Auth\LoginAPIController@logout');
     Route::get('user', 'API\Auth\AuthController@auth_user');
 });
 
@@ -41,3 +41,15 @@ Route::group([
     Route::get('find/{token}', 'API\Auth\PasswordResetController@find');
     Route::post('reset', 'API\Auth\PasswordResetController@reset');
 });
+
+
+Route::get('/location/view-all', 'WarehouseController@index');
+Route::post('/location/add', 'WarehouseController@create');
+Route::get('/location/edit/{location}', 'WarehouseController@edit');
+Route::put('/location/update/{location}', 'WarehouseController@update');
+Route::delete('/location/delete/{location}', 'WarehouseController@destroy');
+
+
+
+
+
