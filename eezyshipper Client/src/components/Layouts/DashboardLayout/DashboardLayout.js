@@ -32,29 +32,27 @@ import AddParcelToClient from '../../AdminPortal/BookInParcel/AddParcelToClient/
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import AwaitingPayment from '../../AdminPortal/BookInParcel/AwaitingPayment/AwaitingPayment';
 
-const DashboardLayout = ({children, contentChanger, contentChange}) => {
+const DashboardLayout = ({currentUser, children, contentChanger, contentChange}) => {
     let location = useLocation();
-
-    const user = children?.props?.user;
 
     return (
         <>
             <div>
-                <Titlebar user ={user}></Titlebar>
+                <Titlebar user ={currentUser?.role}></Titlebar>
             </div>
             <div>
                 <Row className="sidebarheight">
                     
                     {
-                        user === 'admin' ?
+                        currentUser?.role === 'admin' ?
                         <>
                             <Col className="text-center pt-3 px-3 pr-0 " md={2} style={{ backgroundColor: '#F1F6FC' }}>
                                 <Link to={`/dashboard/summery`}><h4>Dashboard</h4></Link>
                                 <Sidenav className="bg-transparent" defaultOpenKeys={['1', '2']}>
-                                    <LeftSidebar user={user}></LeftSidebar>
+                                    <LeftSidebar user={currentUser?.role}></LeftSidebar>
                                 </Sidenav>
                             </Col>
-                            <Col  md={8} style={{backgroundColor : '#F1F6FC'}}>
+                            <Col  md={10} style={{backgroundColor : '#F1F6FC'}}>
                                 <TransitionGroup>
                                     <CSSTransition in={true} key={location.key} classNames="page-fade" timeout={100}>
                                         <Switch location={location}>
@@ -110,13 +108,12 @@ const DashboardLayout = ({children, contentChanger, contentChange}) => {
                                     </CSSTransition>
                                 </TransitionGroup>
                             </Col>
-                            <Col md={2} style={{backgroundColor : '#F1F6FC'}}>Right Sidebar</Col>
                         </>
                         :
                         <>
                         <Col className="pt-3 px-5" md={3} style={{ backgroundColor: '#F1F6FC' }}>
                         <Sidenav className="bg-transparent" defaultOpenKeys={['1', '2']}>
-                            <LeftSidebar user={user}></LeftSidebar>
+                            <LeftSidebar user={currentUser?.role}></LeftSidebar>
                         </Sidenav>
                         </Col>
                         <Col md={9} className="p-4" style={{backgroundColor : '#F0FBFF'}}>
@@ -140,11 +137,7 @@ const DashboardLayout = ({children, contentChanger, contentChange}) => {
 
 const mapStateToProps = (state) => {
     return{
-        contentChanger: state.contentChanger
+        currentUser: state.currentUser
     }
 }
-
-const mapDispatchToProps = {
-    contentChange: contentChange
-}
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardLayout);
+export default connect(mapStateToProps)(DashboardLayout);

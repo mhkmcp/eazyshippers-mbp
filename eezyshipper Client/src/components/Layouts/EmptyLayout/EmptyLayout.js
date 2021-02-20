@@ -1,11 +1,12 @@
 import React from 'react';
+import GuestTitlebar from '../../Shared/GuestTitlebar/GuestTitlebar';
 
 const EmptyLayout = (props) => {
-    console.log(props.children);
     return (
-        <div>
+        <>
+            <GuestTitlebar></GuestTitlebar>
             {props?.children}
-        </div>
+        </>
     );
 };
 

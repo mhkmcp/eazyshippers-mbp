@@ -6,7 +6,7 @@ export const contentChange = contentName => {
     return {type : ADMIN_CHANGE_EVENT_CALL, contentName}
 }
 
-export const addCurrentUser = user => {
+export const setCurrentUser = user => {
     return{
         type: ADD_CURRENT_USER,
         user

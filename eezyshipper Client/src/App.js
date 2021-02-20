@@ -5,18 +5,19 @@ import HomePageRoot from './components/HomePage/HomePageRoot/HomePageRoot';
 import DashboardLayout from './components/Layouts/DashboardLayout/DashboardLayout';
 import EmptyLayout from './components/Layouts/EmptyLayout/EmptyLayout';
 import Register from "./components/Shared/Register/Register";
-import AdminLogIn from "./components/AdminLogIn/AdminLogIn";
+import AdminLogIn from "./components/Shared/AdminLogIn/AdminLogIn";
 import ForgetPassword from "./components/Shared/ForgetPassword/ForgetPassword";
 import NotFound from './components/Shared/NotFound/NotFound';
 import AvailableCards from './components/ClientPortal/ClientPayments/AvailableCards';
+import { connect } from 'react-redux';
 
-const AppRoute = ({ component: Component, layout: Layout, ...rest}) => {
+const AppRoute = ({currentUser, component: Component, layout: Layout, ...rest}) => {
   
   return(
     <Route 
       {...rest} 
       render={({location}) => 
-      1 ? (
+      currentUser?.email ? (
       <Layout>
         <Component  {...rest}/>
       </Layout>
@@ -31,7 +32,7 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest}) => {
   )
 }
 
-function App() {
+function App({currentUser}) {
   return (
     <>
       <Switch> 
@@ -41,9 +42,13 @@ function App() {
           <Route exact path="/login">
             <EmptyLayout><AdminLogIn/></EmptyLayout>
           </Route>
-          <AppRoute exact path="/register" layout={EmptyLayout} component={Register} />
-          <AppRoute exact path="/forget-pass" layout={EmptyLayout} component={ForgetPassword} />
-          <AppRoute path="/dashboard" layout={DashboardLayout} user="admin"/>
+          <Route exact path="/register">
+            <EmptyLayout><Register/></EmptyLayout>
+          </Route>
+          <Route exact path="/forget-pass">
+            <EmptyLayout><ForgetPassword/></EmptyLayout>
+          </Route>
+          <AppRoute path="/dashboard" currentUser={currentUser} user="admin" layout={DashboardLayout}/>
           <AppRoute path="/track-parcel" layout={EmptyLayout} />
           <Route path="/available-card">
             <AvailableCards></AvailableCards>
@@ -61,4 +66,11 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state =>{
+  return{
+    currentUser: state.currentUser
+  }
+}
+
+
+export default connect(mapStateToProps)(App);
