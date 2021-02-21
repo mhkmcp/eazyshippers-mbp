@@ -50,6 +50,14 @@ Route::put('/location/update/{location}', 'WarehouseController@update');
 Route::delete('/location/delete/{location}', 'WarehouseController@destroy');
 
 
+//Supplier details
+Route::get('/supplier/view-all', 'SupplierController@index');
+Route::post('/supplier/add', 'SupplierController@create');
+Route::get('/supplier/edit/{id}', 'SupplierController@edit');
+Route::put('/supplier/update/{id}', 'SupplierController@update');
+Route::delete('/supplier/delete/{id}', 'SupplierController@destroy');
+
+
 
 
 
