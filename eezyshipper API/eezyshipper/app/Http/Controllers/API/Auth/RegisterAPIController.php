@@ -38,19 +38,24 @@ class RegisterAPIController extends Controller
             ], 404);
         }
 
+
         $user = new User();
         $user->users_first_name = $request->users_first_name;
         $user->users_last_name = $request->users_last_name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        
         $user->save();
+
+        User::where('id', $user->id)->update([
+            'customer_id'=>sprintf('ES%09d', $user->id)
+        ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Registration Successful!',
             'data' => ['user' => $user],
         ], 201);
+
     }
 
 }
