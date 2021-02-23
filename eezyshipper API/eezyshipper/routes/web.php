@@ -16,19 +16,19 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 Route::get('/', function () {
 
-    return response()->json([
-        'name' => 'eezyshipper',
-        'message' => 'Hello World',
-    ]);
+    // return response()->json([
+    //     'name' => 'eezyshipper',
+    //     'message' => 'Hello World',
+    // ]);
     
     // $config = ['table' => 'users', 'length' => 11, 'prefix' => 'ES'];
-    // $id = IdGenerator::generate($config);
+    // $customer_id = IdGenerator::generate($config);
 
-    // //\DB::table('users')->insert(['id'=>$id]);
+    // \DB::table('users')->insert(['customer_id'=>$customer_id]);
 
-    // //echo $id;
+    // echo $customer_id;
 
-    // return $id;
+    // return $customer_id;
 });
 
 // Route::get('/registermail', function () {
