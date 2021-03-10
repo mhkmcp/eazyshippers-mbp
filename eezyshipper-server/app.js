@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const cookieParser = require('cookie-parser');
 // dotenv provide global variable process.env
 
-const port = 8000;
+const port = 9000;
 
 const app = express();
 
@@ -37,11 +37,9 @@ db.connect((err) => {
 
 app.use("/", require("./routes/pages"));
 app.use("/auth", require("./routes/auth"));
+app.use("/subscription", require("./routes/subscription"));
 
-// app.listen(port, () => {
-//     console.log("Eezyshipper Running On: ", port)
-// })
 
 app.listen(9000, () => {
-    console.log("Server Running...")
+    console.log("Eezyshipper Running On: ", port)
 })

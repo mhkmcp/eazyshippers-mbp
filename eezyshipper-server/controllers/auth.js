@@ -16,12 +16,13 @@ exports.register = (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
+    const country = req.body.country;
     const password = req.body.password;
-
-    console.log(firstName, lastName, email, password);
+    let address_line_1 = "";
+    let address_line_2 = "";
+    let city = "";
 
     // const { firstName, lastName, email, password } = req.body;
-
 
     db.query("SELECT email FROM user WHERE email = ?", [email], async (error, results) => {
         if (error) {
@@ -32,20 +33,50 @@ exports.register = (req, res) => {
                 message: "The Email is already in use"
             });
         } else {
-
             let hashedPassword = await bcrypt.hash(password, 8);
-            console.log(hashedPassword);
 
-            db.query("INSERT INTO user SET ?", { firstName: firstName, lastName: lastName, email: email, password: hashedPassword }, (error, results) => {
-                if (error) {
-                    console.log(error)
-                } else {
-                    console.log("Results: ", results);
-                    res.sendStatus(201, {
-                        message: "User Registered Successfully"
-                    });
-                }
-            })
+            // Build ES ID
+            try {
+                // let esId = "";
+
+                // db.query("SELECT MAX(es_id) as ES_ID FROM user", async (error, results) => {
+                //     if (error) { console.log(error) }
+                //     if (results.length < 1) {
+                //         esId = "ES0000001";
+                //     }
+                //     const lastEsId = results[0]['ES_ID'];
+                //     let ln = lastEsId.length;
+                //     let lastEsIdNo = parseInt(lastEsId.toString().slice(2, ln));
+                //     lastEsIdNo = lastEsIdNo + 1
+                //     esId = lastEsIdNo.toString()
+                //     while (esId.length < 7) {
+                //         esId = "0" + esId;
+                //     }
+                //     esId = "ES" + esId;
+                //     console.log("ES_ID: ", esId);
+                // })
+
+                // console.log("In Main: ", generateEsId());
+                // console.log("main: ", esId);
+                // console.log(esId.length);
+                // es_id: esId,
+                db.query("INSERT INTO user SET ?",
+                    {
+                        firstName: firstName, lastName: lastName, email: email,
+                        country: country, password: hashedPassword
+                    },
+                    (error, results) => {
+                        if (error) {
+                            console.log(error)
+                        } else {
+                            res.sendStatus(201, {
+                                message: "Customer Registered Successfully"
+                            });
+                        }
+                    })
+            } catch (ex) {
+                console.log("ED ID NOT FOUND! ", ex);
+            }
         }
     })
 }
@@ -65,9 +96,7 @@ exports.login = async (req, res) => {
             if (error) {
                 console.log("Error qsl: ", error);
             }
-
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
-
                 res.sendStatus(401, {
                     message: "Email or Password is incorrect"
                 })
@@ -93,4 +122,16 @@ exports.login = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+exports.logout = async (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/')
+}
+
+exports.update = async (req, res) => {
+
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+
 }
