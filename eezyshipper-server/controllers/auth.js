@@ -37,45 +37,43 @@ exports.register = (req, res) => {
 
             // Build ES ID
             try {
-                // let esId = "";
+                let esId;
+                db.query("SELECT MAX(es_id) as ES_ID FROM user", async (error, results) => {
+                    if (error) { console.log(error) }
+                    if (results.length < 1) {
+                        esId = "ES0000001";
+                    }
+                    const lastEsId = results[0]['ES_ID'];
+                    let ln = lastEsId.length;
+                    let lastEsIdNo = parseInt(lastEsId.toString().slice(2, ln));
+                    lastEsIdNo = lastEsIdNo + 1
+                    esId = lastEsIdNo.toString()
+                    while (esId.length < 7) {
+                        esId = "0" + esId;
+                    }
+                    esId = "ES" + esId;
+                    console.log("ES_ID: ", esId);
+                    // return esId;
+                    db.query("INSERT INTO user SET ?",
+                        {
+                            firstName: firstName, lastName: lastName, email: email,
+                            country: country, es_id: esId, password: hashedPassword
+                        },
+                        (error, results) => {
+                            if (error) {
+                                console.log(error)
+                            } else {
+                                res.sendStatus(201, {
+                                    message: "Customer Registered Successfully"
+                                });
+                            }
+                        })
 
-                // db.query("SELECT MAX(es_id) as ES_ID FROM user", async (error, results) => {
-                //     if (error) { console.log(error) }
-                //     if (results.length < 1) {
-                //         esId = "ES0000001";
-                //     }
-                //     const lastEsId = results[0]['ES_ID'];
-                //     let ln = lastEsId.length;
-                //     let lastEsIdNo = parseInt(lastEsId.toString().slice(2, ln));
-                //     lastEsIdNo = lastEsIdNo + 1
-                //     esId = lastEsIdNo.toString()
-                //     while (esId.length < 7) {
-                //         esId = "0" + esId;
-                //     }
-                //     esId = "ES" + esId;
-                //     console.log("ES_ID: ", esId);
-                // })
 
-                // console.log("In Main: ", generateEsId());
-                // console.log("main: ", esId);
-                // console.log(esId.length);
-                // es_id: esId,
-                db.query("INSERT INTO user SET ?",
-                    {
-                        firstName: firstName, lastName: lastName, email: email,
-                        country: country, password: hashedPassword
-                    },
-                    (error, results) => {
-                        if (error) {
-                            console.log(error)
-                        } else {
-                            res.sendStatus(201, {
-                                message: "Customer Registered Successfully"
-                            });
-                        }
-                    })
+                })
+
             } catch (ex) {
-                console.log("ED ID NOT FOUND! ", ex);
+                console.log("ES ID NOT FOUND! ", ex);
             }
         }
     })
