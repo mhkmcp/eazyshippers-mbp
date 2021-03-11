@@ -6,6 +6,6 @@ const subscriptionController = require('../controllers/subscription');
 
 const router = express.Router();
 
-router.get("/packages", subscriptionController.packages);
+// router.get("/packages", subscriptionController.packages);
 
 module.exports = router;
