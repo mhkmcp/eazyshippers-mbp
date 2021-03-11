@@ -4,6 +4,7 @@ exports.up = function (knex) {
     return knex.schema.createTable("percel", (table) => {
         table.increments();
         // table.string("name");
+        table.integer("user_id");
         table.string("timestamp");
         table.string("transaction_id");
         table.string("shopped_from");
@@ -16,7 +17,6 @@ exports.up = function (knex) {
         table.boolean("is_complete").defaultTo(0);  // 1: history, 0:active
         // table.boolean("is_paid").defaultTo(0);   // 1: paid, 0: Click to Pay
         table.timestamps(true, true);
-
     })
 };
 
