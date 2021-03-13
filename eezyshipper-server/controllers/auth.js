@@ -95,6 +95,8 @@ exports.login = async (req, res) => {
                     message: "Email or Password is incorrect"
                 })
             } else {
+
+                console.log("Logged In User: ", results[0]);
                 const id = results[0].id;
                 const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
@@ -107,7 +109,9 @@ exports.login = async (req, res) => {
                     httpOnly: true
                 }
                 res.cookie('jwt', token, cookieOptions);
-                res.sendStatus(200);
+                res.sendStatus(200, {
+                    user: results[0]
+                });
             }
         })
     } catch (error) {
@@ -120,6 +124,32 @@ exports.logout = async (req, res) => {
     res.redirect('/')
 }
 
+exports.verify = async (req, res) => {
+    const user_id = req.body.id;
+    knexapp("user")
+        .where('id', user_id)
+        .update(
+            {
+                'is_verified': 1
+            }).then((result) => {
+                console.log("Result: ", result);
+                if (result) {
+                    res.sendStatus(200, {
+                        message: "Role Updated!"
+                    })
+                }
+            }).catch((err) => {
+                console.log("Error: ", err);
+            })
+
+}
+
+exports.updateProfile = async (req, res) => {
+    const document = req.body.document;
+    const document_name = document.name;
+    // console.log(document, document_name);
+}
+
 exports.updateRole = async (req, res) => {
     const role = "admin";
     knexapp("user")
@@ -128,6 +158,7 @@ exports.updateRole = async (req, res) => {
             {
                 'role': role
             }).then((result) => {
+                console.log("Result: ", result);
                 if (result) {
                     res.sendStatus(200, {
                         message: "Role Updated!"

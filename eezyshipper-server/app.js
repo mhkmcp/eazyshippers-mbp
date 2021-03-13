@@ -35,8 +35,9 @@ app.set('view engine', 'hbs');
 
 app.use("/", require("./routes/pages"));
 app.use("/auth", require("./routes/auth"));
-// app.use("/subscription", require("./routes/subscription"));
+app.use("/subscribe", require("./routes/subscription"));
 app.use("/warehouse", require("./routes/warehouse"));
+app.use("/percel", require("./routes/percel"));
 
 
 app.listen(port, () => {

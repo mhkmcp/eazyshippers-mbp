@@ -15,6 +15,7 @@ exports.up = function (knex) {
         table.string("country");
         table.string("nationality");
         table.string("identification_document");
+        table.integer("subscription_package_id").defaultTo(1);
         table.boolean("service_update_mail").defaultTo(0);
         table.boolean("promotional_mail").defaultTo(0);
         table.boolean("is_verified").defaultTo(0);
