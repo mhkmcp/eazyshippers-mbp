@@ -68,8 +68,9 @@ exports.register = (req, res) => {
         knexapp("user").insert([{
             first_name: firstName, last_name: lastName, email: email,
             country: country, es_id: esId, password: hashedPassword
-        }]).then((result3) => {
+        }]).then((result) => {
             res.sendStatus(201, {
+                user: result[0],
                 message: "User Registered Successfully"
             })
         }).catch((er3) => {
