@@ -115,7 +115,7 @@ exports.login = async (req, res) => {
                 })
 
             } else {
-                console.log("Logged In User: ", results[0]);
+                // console.log("Logged In User: ", results[0]);
                 const id = results[0].id;
                 const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
@@ -135,7 +135,15 @@ exports.login = async (req, res) => {
                 // });
                 res.json({
                     status: 200,
-                    user: results[0]
+                    toke: token,
+                    // user: results[0]
+                    user: {
+                        id: results[0].id,
+                        es_id: results[0].es_id,
+                        email: results[0].email,
+                        is_verified: results[0].is_verified,
+                        role: results[0].role
+                    }
                 })
             }
         })
