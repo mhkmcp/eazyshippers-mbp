@@ -69,12 +69,22 @@ exports.register = (req, res) => {
             first_name: firstName, last_name: lastName, email: email,
             country: country, es_id: esId, password: hashedPassword
         }]).then((result) => {
-            res.sendStatus(201, {
-                user: result[0],
+            // res.sendStatus(201, {
+            //     user: result[0],
+            //     message: "User Registered Successfully"
+            // })
+            // console.log(knexapp("user").where({ 'id': result }));
+            res.json({
+                status: 201,
+                user: result,
                 message: "User Registered Successfully"
             })
         }).catch((er3) => {
-            res.sendStatus(409, {
+            // res.sendStatus(409, {
+            //     message: "Email Already in use!"
+            // })
+            res.json({
+                status: 409,
                 message: "Email Already in use!"
             })
         })
@@ -85,18 +95,26 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            res.sendStatus(400, {
+            res.json({
+                status: 400,
                 message: "Please provide your email and password"
             })
+            // res.sendStatus(400, {
+            //     message: "Please provide your email and password"
+            // })
         }
 
         knexapp("user").where("email", email).then(async (results) => {
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
-                res.sendStatus(401, {
+                // res.sendStatus(401, {
+                //     message: "Email or Password is incorrect"
+                // })
+                res.json({
+                    status: 401,
                     message: "Email or Password is incorrect"
                 })
-            } else {
 
+            } else {
                 console.log("Logged In User: ", results[0]);
                 const id = results[0].id;
                 const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -110,9 +128,15 @@ exports.login = async (req, res) => {
                     httpOnly: true
                 }
                 res.cookie('jwt', token, cookieOptions);
-                res.sendStatus(200, {
+                res.cookie('user_id', results[0].id);
+
+                // res.sendStatus(200, {
+                //     user: results[0]
+                // });
+                res.json({
+                    status: 200,
                     user: results[0]
-                });
+                })
             }
         })
     } catch (error) {
@@ -121,6 +145,7 @@ exports.login = async (req, res) => {
 }
 
 exports.logout = async (req, res) => {
+    console.log(res.cookie('user_id'));
     res.cookie('jwt', '', { maxAge: 1 });
     res.redirect('/')
 }
@@ -134,11 +159,15 @@ exports.verify = async (req, res) => {
                 'is_verified': 1
             }).then((result) => {
                 console.log("Result: ", result);
-                if (result) {
-                    res.sendStatus(200, {
-                        message: "Role Updated!"
-                    })
-                }
+                res.json({
+                    status: 200,
+                    message: "User is Verified"
+                })
+                // if (result) {
+                // res.sendStatus(200, {
+                //     message: "Role Updated!"
+                // })
+                // }
             }).catch((err) => {
                 console.log("Error: ", err);
             })
