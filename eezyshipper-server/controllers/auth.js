@@ -69,20 +69,36 @@ exports.register = (req, res) => {
             first_name: firstName, last_name: lastName, email: email,
             country: country, es_id: esId, password: hashedPassword
         }]).then((result) => {
-            // res.sendStatus(201, {
-            //     user: result[0],
-            //     message: "User Registered Successfully"
-            // })
-            // console.log(knexapp("user").where({ 'id': result }));
-            res.json({
-                status: 201,
-                user: result,
-                message: "User Registered Successfully"
+            const token = jwt.sign({ id: result[0].id }, process.env.JWT_SECRET, {
+                expiresIn: process.env.JWT_EXPIRES_IN
             })
+
+            knexapp("user").where({ 'id': result[0] })
+                .select('id', 'es_id', 'first_name', 'last_name', 'email', 'role', 'is_verified', 'is_active')
+                .then(result2 => {
+                    const cookieOptions = {
+                        expires: new Date(
+                            Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+                        ),
+                        httpOnly: true
+                    }
+                    res.cookie('jwt', token, cookieOptions);
+                    res.cookie('user_id', result2[0].id);
+                    console.log(result2[0]);
+
+                    console.log(token);
+
+                    res.json({
+                        token: token,
+                        status: 201,
+                        user: result2[0],
+                        message: "User Registered Successfully"
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }).catch((er3) => {
-            // res.sendStatus(409, {
-            //     message: "Email Already in use!"
-            // })
             res.json({
                 status: 409,
                 message: "Email Already in use!"
@@ -135,7 +151,7 @@ exports.login = async (req, res) => {
                 // });
                 res.json({
                     status: 200,
-                    toke: token,
+                    token: token,
                     // user: results[0]
                     user: {
                         id: results[0].id,
