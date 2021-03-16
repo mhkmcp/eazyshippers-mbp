@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require('cors')
 const path = require("path");
 const cookieParser = require('cookie-parser');
 // dotenv provide global variable process.env
@@ -15,6 +16,7 @@ const app = express();
 // });
 
 const publicDirectory = path.join(__dirname, './public');
+app.use(cors())
 app.use(express.static(publicDirectory))
 
 // Parse URL Encoded bodies as sent by HTML forms
