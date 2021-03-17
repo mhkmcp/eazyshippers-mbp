@@ -10,6 +10,7 @@ exports.up = function (knex) {
         table.string("post_code");
         table.string("phone");
         table.string("country");
+        table.string("country_code");
         table.boolean("is_active").defaultTo(1);
         table.timestamps(true, true);
     })
