@@ -26,9 +26,9 @@ const knexapp = knex({
 exports.all = (req, res) => {
 
     knexapp("warehouse").where("is_active", 1).then((results) => {
-        console.log("Result: ", results);
-        res.sendStatus(200, {
-            message: "Success!"
+        console.log("All Result: ", results);
+        res.json({
+            warehouses: results
         })
     })
         .catch(err => {
@@ -37,25 +37,33 @@ exports.all = (req, res) => {
 }
 
 exports.add = (req, res) => {
-    const full_name = req.body.firstName;
-    const address_line_1 = req.body.lastName;
-    const state = req.body.email;
+    const full_name = req.body.fullName;
+    const address_line_1 = req.body.addressLine1;
+    const address_line_2 = req.body.addressLine2;
+    const post_code = req.body.postCode;
+    const phone = req.body.phone;
+    const state = req.body.state;
+    const city = req.body.city;
     const country = req.body.country;
+    const country_code = req.body.countryCode;
 
-    console.log(full_name, address_line_1, state, country);
+    // console.log("Req Data: ", req.body);
 
     knexapp("warehouse").insert([{
         full_name: full_name, address_line_1: address_line_1,
-        state: state, country: country
+        address_line_2: address_line_2, phone: phone, post_code: post_code,
+        state: state, city: city, country: country, country_code: country_code
     }]).then((result) => {
-        console.log(result);
-        res.sendStatus(201, {
+        // console.log("Add Result: ", result);
+        res.json({
+            status: 201,
             message: "Warehouse Inserted Successfully!"
         })
     }).catch((er3) => {
-        console.log("Error: ", er3);
-        res.sendStatus(409, {
-            message: "Error insertion Warehouse"
+        // console.log("Error: ", er3);
+        res.json({
+            status: 409,
+            message: "Warehouse Insert Failed!"
         })
     });
 }
