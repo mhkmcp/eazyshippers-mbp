@@ -72,9 +72,10 @@ exports.address = (req, res) => {
     const country = "Bangladesh";
 
     knexapp("warehouse").where({ "is_active": 1, "country": country }).then((results) => {
-        console.log("Result: ", results);
-        res.sendStatus(200, {
-            message: "Success!"
+        // console.log("Result: ", results);
+        res.json({
+            status: 200,
+            address: results
         })
     })
         .catch(err => {

@@ -146,16 +146,14 @@ exports.login = async (req, res) => {
                 res.cookie('jwt', token, cookieOptions);
                 res.cookie('user_id', results[0].id);
 
-                // res.sendStatus(200, {
-                //     user: results[0]
-                // });
                 res.json({
                     status: 200,
                     token: token,
-                    // user: results[0]
                     user: {
                         id: results[0].id,
                         es_id: results[0].es_id,
+                        first_name: results[0].first_name,
+                        last_name: results[0].last_name,
                         email: results[0].email,
                         is_verified: results[0].is_verified,
                         role: results[0].role
@@ -164,7 +162,10 @@ exports.login = async (req, res) => {
             }
         })
     } catch (error) {
-        console.log(error);
+        res.json({
+            status: 400,
+            message: "Login Failed!"
+        })
     }
 }
 
